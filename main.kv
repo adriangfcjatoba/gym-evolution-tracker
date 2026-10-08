@@ -1,0 +1,363 @@
+#Cinza Gemini (escuro) rgba: 0.075, 0.075, 0.078, 1
+#Cinza Gemini (claro) rgba: 0.10 0.10 0.10 1
+
+
+
+<Gerenciador>:
+    TelaInicial:
+        name:'tela_inicial'
+    TelaConfig:
+        name:'tela_config'
+    TelaAnotar:
+        name:'tela_anotar'
+    TelaEvo:
+        name:'tela_evo'
+
+<TelaInicial>:
+    id:tela_inicial
+    #Mudar cor do fundo
+    canvas.before:
+        Color:
+            rgba: 0.075, 0.075, 0.078, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        id: layoutinicial
+        orientation:'vertical'
+
+        Label:
+            text:'Gym Evo Tracker ( G.E.T )'
+            font_size: '18sp'
+            size_hint: 0.5, 0.08
+            pos_hint: {'center_x': 0.5, 'y': 0.88}
+
+        ScrollView:
+            id:scroll_layout_inicial
+            size_hint: 0.9, 0.8
+            pos_hint:{'center_x': 0.5, 'center_y': 0.45}
+
+            BoxLayout:
+                id:box_scroll_layout_inicial
+                size_hint: 1, 2
+                orientation:'vertical'
+
+                BoxLayout:
+                    id:box_box_scroll_layout_inicial
+                    size_hint: 1, 0.5
+                    orientation:'vertical'
+                    
+                    BotaoArredondadoComBorda:
+                        text: 'Anotar Cargas De Hoje'
+                        font_size: '14sp'
+                        on_release:
+                            root.manager.current = 'tela_anotar'
+                            root.manager.transition.direction = 'down'     
+
+                    BotaoArredondadoComBorda:
+                        text: 'Analisar Desempenho * Ainda em Desenvolvimento * '
+                        font_size: '14sp'
+                        on_release:
+                            root.manager.current = 'tela_evo'
+                            root.manager.transition.direction = 'left'
+
+                    BotaoArredondadoComBorda:
+                        text: 'Ir para configuração \n de treino'
+                        font_size: '14sp'
+                        on_release:
+                            root.manager.current = 'tela_config'
+                            root.manager.transition.direction = 'up'
+        
+                BoxLayout:
+                    id:layout_cargas_recentes
+                    orientation: 'vertical'
+                    canvas.before:
+                        Color:
+                            rgba: 0.16, 0.16, 0.2, 1
+                        RoundedRectangle:
+                            size: self.size
+                            pos: self.pos 
+                            radius: [20, 20, 20, 20]
+
+                    LabelArredondadoComBorda:
+                        text: 'Cargas Mais Recentes'
+                        size_hint_y: None
+                        height: '200dp'
+                        pos_hint: {'top': 1}
+                    
+
+################################################################################################
+
+<TelaConfig>:
+    #Mudar cor do fundo
+    canvas.before:
+        Color:
+            rgba: 0.075, 0.075, 0.078, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    FloatLayout:
+        id: layoutconfig
+
+        Label:
+            text: 'TELA DE CONFIGURAÇÃO'
+            font_size: '16sp'
+            size_hint: 0.5, 0.07
+            pos_hint: {'center_x': 0.5, 'y': 0.91}
+
+        ScrollView:
+            id:scroll
+            size_hint: 0.9, 0.7
+            pos_hint: {'center_x': 0.5, 'center_y': 0.55}
+            BoxLayout:
+                id: boxdoscroll
+                orientation: 'horizontal'
+                size_hint: 5, 1
+                BoxLayout:
+                    id: SEG
+                    orientation: 'vertical'
+                BoxLayout: 
+                    id: TER
+                    orientation: 'vertical'
+                BoxLayout:
+                    id: QUA
+                    orientation: 'vertical'
+                BoxLayout:
+                    id: QUI 
+                    orientation: 'vertical'
+                BoxLayout:
+                    id: SEX
+                    orientation: 'vertical'
+                BoxLayout:
+                    id: SAB
+                    orientation: 'vertical'
+                BoxLayout:
+                    id: DOM
+                    orientation: 'vertical'
+                        
+                
+        Button:
+            text: 'Voltar'
+            font_size: '14sp'
+            size_hint: 0.25, 0.07
+            pos_hint: {'x': 0, 'y': 0.92}
+            on_release:
+                root.manager.current = 'tela_inicial'
+                root.manager.transition.direction = 'down'
+
+            canvas.before:
+                Color:
+                    rgba: 0.10, 0.10, 0.10, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+        Button:
+            id: botao_salvar
+            text: 'SALVAR\nALTERAÇÕES'
+            font_size: '13sp'
+            size_hint: 0.40, 0.10
+            pos_hint: {'x': 0.10, 'y': 0.05}
+            on_release:
+                app.guardartreino()
+
+            canvas.before:
+                Color:
+                    rgba: 0.10, 0.10, 0.10, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+        Button:
+            id: botao_limpar
+            text: 'LIMPAR\nTREINO'
+            font_size: '13sp'
+            size_hint: 0.40, 0.10
+            pos_hint: {'x': 0.50, 'y': 0.05}
+            on_release:
+                app.limpartreino()
+
+            canvas.before:
+                Color:
+                    rgba: 0.10, 0.10, 0.10, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+
+<TelaAnotar>:
+    #Mudar cor do fundo
+    canvas.before:
+        Color:
+            rgba: 0.075, 0.075, 0.078, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        id: layoutanotar
+
+        Label:
+            text: 'ANOTE OU MODIFIQUE SUAS CARGAS!'
+            font_size: '16sp'
+            size_hint: 0.5, 0.08
+            pos_hint: {'center_x': 0.5, 'y': 0.80}
+
+        Button:
+            text: 'Voltar'
+            font_size: '14sp'
+            size_hint: 0.25, 0.07
+            pos_hint: {'x': 0, 'y': 0.92}
+            on_release:
+                root.manager.current = 'tela_inicial'
+                root.manager.transition.direction = 'up'
+
+            canvas.before:
+                Color:
+                    rgba: 0.10, 0.10, 0.10, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+        BoxLayout:
+            id:boxtexto
+            orientation: 'vertical'
+            size_hint: 0.4, None
+            height: self.minimum_height
+            pos_hint: {'center_x': 0.35, 'center_y': 0.48}
+
+        BoxLayout:
+            id:boxentrada
+            orientation: 'vertical'
+            size_hint: 0.3, None
+            height: self.minimum_height
+            pos_hint: {'center_x': 0.72, 'center_y': 0.48}
+
+
+<TelaEvo>:
+    #Mudar cor do fundo
+    canvas.before:
+        Color:
+            rgba: 0.075, 0.075, 0.078, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        id:layoutevo
+
+        Label:
+            text: 'Análise de Desempenho:'
+            font_size: '16sp'
+            size_hint: 0.5, 0.08
+            pos_hint: {'center_x': 0.65, 'y': 0.88}
+
+        Button:
+            text: 'Voltar'
+            font_size: '14sp'
+            size_hint: 0.25, 0.07
+            pos_hint: {'x': 0, 'y': 0.92}
+            on_release:
+                root.manager.current = 'tela_inicial'
+                root.manager.transition.direction = 'right'
+
+            canvas.before:
+                Color:
+                    rgba: 0.10, 0.10, 0.10, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+
+            background_color: (0, 0, 0, 0)
+            background_normal: ''
+
+        BoxLayout:
+            id: conteiner_grafico
+            size_hint: 0.9, 0.72
+            pos_hint: {'center_x': 0.5, 'center_y': 0.4}
+
+            canvas.before:
+                Color:
+                    rgba: 0.16, 0.16, 0.2, 1
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos 
+                    radius: [20, 20, 20, 20]
+
+
+# MODIFICAÇÃO POP-UP
+<PopupArredondado@Popup>:
+    size_hint: 0.85, 0.55
+    title_align: 'center'
+    title_size: '16sp'
+
+    # 1. Remove a imagem padrão cinza do Kivy
+    background: ''
+
+    # 2. Deixa o container original transparente para não vazar borda quadrada
+    background_color: 0, 0, 0, 0
+
+    canvas.before:
+        # 3. Define a cor do fundo
+        Color:
+            rgba: 0.12, 0.12, 0.12, 0.95
+
+        # 4. Desenha o retângulo arredondado do fundo
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15, 15, 15, 15]
+
+<BotaoArredondadoComBorda@Button>:
+    font_size: '14sp'
+    background_color: 0, 0, 0, 0
+    background_normal: ''
+    
+    canvas.before:
+        # 1. Cor e fundo preenchido (Cinza escuro)
+        Color:
+            rgba: 0.10, 0.10, 0.10, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(15),]
+
+        # 2. Cor e borda sutilmente mais escura
+        Color:
+            rgba: 0.05, 0.05, 0.05, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(15))
+            width: dp(1.2)
+
+<LabelArredondadoComBorda@Label>
+    font_size: '14sp'
+    background_color: 0, 0, 0, 0
+    background_normal: ''
+    
+    canvas.before:
+        # 1. Cor e fundo preenchido (Cinza escuro)
+        Color:
+            rgba: 0.10, 0.10, 0.10, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(15),]
+
+        # 2. Cor e borda sutilmente mais escura
+        Color:
+            rgba: 0.16, 0.16, 0.2, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(15))
+            width: dp(1.2)
