@@ -1,70 +1,70 @@
 # G.E.T — Gym Evo Tracker
 
-A mobile workout tracker built with Python and Kivy, designed to run on Android.  
-Log your exercise loads each day, review recent performance, and visualize progress over time through line charts.
+Um aplicativo mobile de acompanhamento de treinos feito com Python e Kivy, projetado para rodar no Android.  
+Registre as cargas dos exercícios a cada dia, veja o desempenho recente e visualize a evolução ao longo do tempo por meio de gráficos de linha.
 
 ---
 
-## Features
+## Funcionalidades
 
-- **Workout configuration** — Set up your weekly training split (Mon–Sun), up to 7 exercises per day
-- **Load logging** — Record weights for each exercise on the current day; pre-fills last known load automatically
-- **Performance analysis** — Generate line charts per exercise using historical data from the local database
-- **Local storage** — All data is stored on-device: workout config in JSON, load history in SQLite
+- **Configuração de treino** — Monte sua divisão semanal (Seg–Dom), com até 7 exercícios por dia
+- **Registro de cargas** — Anote os pesos de cada exercício no dia atual; a última carga conhecida é preenchida automaticamente
+- **Análise de desempenho** — Gere gráficos de linha por exercício com base no histórico armazenado localmente
+- **Armazenamento local** — Todos os dados ficam no dispositivo: configuração de treino em JSON e histórico de cargas em SQLite
 
 ---
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
 get-app/
-├── main.py                  # App entry point, MainApp class, DB logic
-├── main.kv                  # Kivy layout definitions for all screens
-├── Tela_Inicial.py          # Home screen
-├── Tela_de_Anotacao.py      # Load logging screen
-├── Tela_de_Evolucao.py      # Performance chart screen
-├── Tela_de_Configuracao.py  # Workout setup screen
-├── Componentes.py           # Reusable custom widgets
-├── exercicios_base.json     # Base exercise list used in the chart screen
+├── main.py                  # Ponto de entrada do app, classe MainApp, lógica do banco de dados
+├── main.kv                  # Definições de layout Kivy para todas as telas
+├── Tela_Inicial.py          # Tela inicial
+├── Tela_de_Anotacao.py      # Tela de registro de cargas
+├── Tela_de_Evolucao.py      # Tela de gráficos de desempenho
+├── Tela_de_Configuracao.py  # Tela de configuração do treino
+├── Componentes.py           # Widgets personalizados reutilizáveis
+├── exercicios_base.json     # Lista base de exercícios usada na tela de análise
 ├── images/
-│   └── icon.png             # App icon
-└── buildozer.spec           # Android build configuration
+│   └── icon.png             # Ícone do aplicativo
+└── buildozer.spec           # Configuração de build para Android
 ```
 
 ---
 
-## Requirements
+## Requisitos
 
 ### Python
 
 - **Python 3.11.9**
 
-### Python packages
+### Pacotes Python
 
 ```
 kivy
 kivy_garden.graph
 ```
 
-Install with pip:
+Instale com pip:
 
 ```bash
 pip install kivy
 pip install kivy_garden.graph
 ```
 
-> `sqlite3` and `json` are part of the Python standard library — no separate installation needed.
+> `sqlite3` e `json` fazem parte da biblioteca padrão do Python — não precisam ser instalados separadamente.
 
-### For Android builds (Buildozer)
+### Para builds Android (Buildozer)
 
-- **Buildozer** (Linux/WSL recommended)
-- **Android SDK** (auto-downloaded by Buildozer)
-- **Android NDK** (auto-downloaded by Buildozer)
-- Target API: **33** | Minimum API: **24**
-- Architectures: `arm64-v8a`, `armeabi-v7a`
-- python-for-android branch: `v2024.01.21`
+- **Buildozer** (recomendado usar Linux ou WSL)
+- **Android SDK** (baixado automaticamente pelo Buildozer)
+- **Android NDK** (baixado automaticamente pelo Buildozer)
+- API alvo: **33** | API mínima: **24**
+- Arquiteturas: `arm64-v8a`, `armeabi-v7a`
+- Branch do python-for-android: `v2024.01.21`
 
-Install Buildozer:
+Instale o Buildozer:
 
 ```bash
 pip install buildozer
@@ -72,15 +72,15 @@ pip install buildozer
 
 ---
 
-## Running Locally (Desktop)
+## Executando Localmente (Desktop)
 
-Uncomment the `Window.size` line in `main.py` to simulate a phone screen:
+Descomente a linha `Window.size` no `main.py` para simular a tela de um celular:
 
 ```python
 Window.size = (393, 873)
 ```
 
-Then run:
+Em seguida, execute:
 
 ```bash
 python main.py
@@ -88,20 +88,20 @@ python main.py
 
 ---
 
-## Building for Android
+## Gerando o APK para Android
 
-From the project root (inside WSL/Linux):
+A partir da raiz do projeto (dentro do WSL/Linux):
 
 ```bash
 buildozer android debug
 ```
 
-The `.apk` will be output to the `bin/` directory.
+O arquivo `.apk` será gerado na pasta `bin/`.
 
 ---
 
-## Notes
+## Observações
 
-- `Tela_de_Configuracao.py` is imported in `main.py` but not included in this repo — add it to complete the build.
-- The app creates its data files (`bancodedados.db`, `treino_cadastrado.json`) on first run inside the platform's user data directory.
-- The performance analysis screen is still under development.
+- `Tela_de_Configuracao.py` é importado no `main.py`, mas não está incluído neste repositório — adicione o arquivo antes de publicar para que o projeto funcione corretamente.
+- Na primeira execução, o app cria os arquivos de dados (`bancodedados.db`, `treino_cadastrado.json`) no diretório de dados do usuário da plataforma.
+- A tela de análise de desempenho ainda está em desenvolvimento.
